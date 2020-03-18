@@ -1,5 +1,6 @@
 {
   "name": "electron-rpc-remote",
+  "version": "0.1.0",
   "description": "RPC-styled API for electron ipc.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
