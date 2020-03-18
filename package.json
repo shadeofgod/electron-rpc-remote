@@ -6,6 +6,16 @@
   "module": "dist/index.esm.js",
   "jsnext:main": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "homepage": "https://github.com/shadeofgod/electron-rpc-remote#readne",
+  "repository": "github:shadeofgod/electron-rpc-remote",
+  "bugs": "https://github.com/shadeofgod/electron-rpc-remote/issues",
+  "keywords": [
+    "electron",
+    "ipc",
+    "rpc",
+    "ipcMain",
+    "ipcRenderer"
+  ],
   "sideEffects": false,
   "scripts": {
     "start": "electron ./example/main.js",
