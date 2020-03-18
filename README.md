@@ -14,6 +14,13 @@ This package provides a RPC-styled API to ease the pain doing ipc calls in your 
 
 ## Exampe
 
+```sh
+npm install electron-rpc-remote
+
+# or
+yarn add electron-rpc-remote
+```
+
 ```js
 // main
 import ipc from 'electron-rpc-remote';
@@ -30,8 +37,7 @@ ipc.handle({
     count++;
     return count;
   },
-})
-
+});
 
 // renderer
 await ipc.invokeMain('inc'); // -> 1
@@ -49,8 +55,10 @@ interface Handles {
 }
 
 ipc.handle({
-  someMethod() {/** ... */}
-})
+  someMethod() {
+    /** ... */
+  },
+});
 ```
 
 **_`main` process_**
@@ -76,11 +84,13 @@ Also You should try to avoid sending **large objects** or **non-standard JavaScr
 ```js
 // main
 ipc.handle({
-  getValueThatOnlyCanBeAccessedInMain() { return someValue }
+  getValueThatOnlyCanBeAccessedInMain() {
+    return someValue;
+  },
 });
 
 // renderer
-const val = await ipc.invokeMain('getValueThatOnlyCanBeAccessedInMain')
+const val = await ipc.invokeMain('getValueThatOnlyCanBeAccessedInMain');
 ```
 
 - **pass arguments**
@@ -90,9 +100,8 @@ const val = await ipc.invokeMain('getValueThatOnlyCanBeAccessedInMain')
 ipc.handle({
   add(...numbers) {
     return numbers.reduce((a, b) => a + b, 0);
-  }
+  },
 });
-
 
 // renderer
 const val = await ipc.invokeMain('add', [1, 2, 3, 4, 5]);
@@ -103,10 +112,7 @@ const val = await ipc.invokeMain('add', [1, 2, 3, 4, 5]);
 ```js
 // main
 ipc.handle({
-  async openNativeDialog({
-    message,
-    buttons = ['confirm', 'cancel'],
-  }) {
+  async openNativeDialog({ message, buttons = ['confirm', 'cancel'] }) {
     const res = await dialog.showMessageBox({
       message,
       buttons,
@@ -115,7 +121,7 @@ ipc.handle({
     });
 
     return res;
-  }
+  },
 });
 
 // renderer
@@ -137,11 +143,13 @@ ipc.handle({
     const instance = new Notification(Object.assign(defaultOptions, options));
     instance.show();
     return true;
-  }
+  },
 });
 
 // renderer
-const showed = await ipc.invokeMain('showNotification', { body: 'test notification!' });
+const showed = await ipc.invokeMain('showNotification', {
+  body: 'test notification!',
+});
 ```
 
 - **from main process to renderer**
@@ -153,13 +161,13 @@ powerMonitor.on('suspend', () => {
   ipc.invokeRenderer(focused, 'handlePowerSuspend');
 
   // or
-  ipc.invokeAllRenderers('handlePowerSuspend')
+  ipc.invokeAllRenderers('handlePowerSuspend');
 });
 
 // renderer
 ipc.handle({
   handlePowerSuspend() {
     // ...
-  }
+  },
 });
 ```
